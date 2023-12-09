@@ -105,10 +105,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     guardian: { type: guardianSchema, required: true },
     localGuardian: { type: localGuardianSchema, required: true },
     profileImg: { type: String },
-    isDeleted: {
-        type: Boolean,
-        default: false
-    }
 }, {
     toJSON: {
         virtuals: true,
