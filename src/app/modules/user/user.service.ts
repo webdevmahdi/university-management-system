@@ -4,7 +4,7 @@ import { Student } from "../student/student.model";
 import {TUser } from "./user.interface";
 import { User } from "./user.model";
 
-const createStudentOnDb = async (password: string, studentData: TStudent) =>{
+const createStudentIntoDb = async (password: string, studentData: TStudent) =>{
 
     const userData: Partial<TUser> = {}
     userData.password = password || (config.default_password as string);
@@ -22,5 +22,5 @@ const createStudentOnDb = async (password: string, studentData: TStudent) =>{
 }
 
 export const UserServices = {
-    createStudentOnDb
+    createStudentIntoDb
 }

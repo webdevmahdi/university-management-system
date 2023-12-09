@@ -25,7 +25,7 @@ export type TStudent = {
     password: string;
     name: TStudentName;
     gender: "Male" | "Female" | "Others";
-    dateOfBirth?: string;
+    dateOfBirth?: Date;
     email: string;
     contactNo: string;
     emergencyContactNo: string;
@@ -40,6 +40,7 @@ export type TStudent = {
 
 
 export interface StudentModel extends Model<TStudent> {
+    // eslint-disable-next-line no-unused-vars
     isStudentExists(id: string) : Promise<TStudent | null>
 }
 

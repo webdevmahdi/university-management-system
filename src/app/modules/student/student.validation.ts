@@ -35,9 +35,9 @@ export const createStudentValidationSchema = z.object({
     student: z.object({
       name: createStudentNameValidationSchema,
       gender: z.enum(['Male', 'Female', 'Others']),
-      dateOfBirth: z.string().min(1).optional(),
+      dateOfBirth: z.string().optional(),
       email: z.string().min(1).refine(value => validator.isEmail(value), {
-        message: "{value} is not a valid email"
+        message: "{VALUE} is not a valid email"
       }),
       contactNo: z.string().min(1),
       emergencyContactNo: z.string().min(1),
