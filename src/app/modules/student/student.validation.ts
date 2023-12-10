@@ -35,7 +35,7 @@ export const createStudentValidationSchema = z.object({
     student: z.object({
       name: createStudentNameValidationSchema,
       gender: z.enum(['Male', 'Female', 'Others']),
-      dateOfBirth: z.string().optional(),
+      dateOfBirth: z.string().min(1).optional(),
       email: z.string().min(1).refine(value => validator.isEmail(value), {
         message: "{VALUE} is not a valid email"
       }),
@@ -47,6 +47,7 @@ export const createStudentValidationSchema = z.object({
       guardian: createGuardianValidationSchema,
       localGuardian: createLocalGuardianValidationSchema,
       profileImg: z.string().min(1).optional(),
+      admissionSemester: z.string(),
     })
   })
 });

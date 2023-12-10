@@ -6,11 +6,19 @@ import catchAsync from "../../utils/catchAsync";
 
 const allStudent = catchAsync(async (req, res) => {
     const result = await StudentService.getAllStudentsFromDb();
+    // if(await result <= 0){
+    // sendResponse(res, {
+    //     statusCode: httpStatus.OK,
+    //     success: true,
+    //     message: "You don't have any data",
+    //     data: null
+    // })
+    // }
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: "Student data has retrieved successfully",
-        data: result
+        data: result    
     })
 
 })
