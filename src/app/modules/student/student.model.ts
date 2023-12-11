@@ -111,8 +111,16 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     profileImg: { type: String },
     admissionSemester: {
         type: Schema.Types.ObjectId,
-        ref: 'AcademicSemester'
-    }
+        ref: 'academicSemester'
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
+    academicDepartment: {
+        type: Schema.Types.ObjectId,
+        ref: 'AcademicDepartment',
+    },
 }, {
     toJSON: {
         virtuals: true,
@@ -134,11 +142,12 @@ studentSchema.pre('findOne', function (next) {
 studentSchema.pre('aggregate', function (next) {
     this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
     next()
-})
-
+});
 studentSchema.statics.isStudentExists = async function (id: string) {
     const existingStudent = await Student.findOne({ id });
+    // if(!existingStudent){
     return existingStudent;
 }
+
 
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);
