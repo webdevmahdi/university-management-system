@@ -127,10 +127,25 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     },
 });
 
+// studentSchema.virtual('fullName').get(function () {
+//     let name = '';
+//     if(this?.name?.middleName){
+//         name= this.name.middleName;
+//     }
+//     return `${this.name.firstName}${name? ' ' + name + ' ' : ' '}${this.name.lastName}`
+// })
 studentSchema.virtual('fullName').get(function () {
-    return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+    let name = this?.name;
+    let firstName = '';
+    let middleName = '';
+    let lastName = '';
+    if(name){
+        firstName= name?.firstName;
+        middleName= name?.middleName;
+        lastName= name?.lastName;
+    }
+    return `${name ? firstName + ' ' : ''}${name? middleName + ' ' : ' '}${name? lastName: ''}`;
 })
-
 studentSchema.pre('find', function (next) {
     this.find({ isDeleted: { $ne: true } });
     next();
