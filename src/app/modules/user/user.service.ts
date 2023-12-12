@@ -7,7 +7,7 @@ import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 import { generateAdminId, generateFacultyId, generateStudentId } from "./user.utils";
-import { AppError } from "../../errors/AppError";
+import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { Admin } from "../Admin/admin.model";
 import { AcademicDepartmentModel } from "../academicDepartment/academicDepartment.model";

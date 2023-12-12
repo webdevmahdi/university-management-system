@@ -8,7 +8,7 @@ import handleZodError from '../errors/handleZodErrors';
 import { handleMongooseError } from '../errors/handleMongooseError';
 import { handleCastError } from '../errors/handleCastError';
 import { handleDuplicateError } from '../errors/handleDuplicateError';
-import { AppError } from '../errors/AppError';
+import AppError from '../errors/AppError';
 
 export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;

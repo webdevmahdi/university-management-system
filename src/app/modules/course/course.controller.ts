@@ -14,7 +14,7 @@ const createCourseController = catchAsync(async (req, res) => {
 })
 
 const getAllCoursesController = catchAsync(async (req, res) => {
-    const result = await CourseServices.getAllCourseFromDb();
+    const result = await CourseServices.getAllCourseFromDb(req.query);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -47,7 +47,7 @@ const getSingleCourseController = catchAsync(async (req, res) => {
 
 const deleteCourseController = catchAsync(async(req, res)=>{
     const {id} = req.params;
-    const result = CourseServices.deleteCourseFromDb(id);
+    const result = await CourseServices.deleteCourseFromDb(id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -56,6 +56,17 @@ const deleteCourseController = catchAsync(async(req, res)=>{
     })
     return result;
 })
+// const deleteCourseController = catchAsync(async (req, res) => {
+//     const { id } = req.params;
+//     const result = await CourseServices.deleteCourseFromDb(id);
+  
+//     sendResponse(res, {
+//       statusCode: httpStatus.OK,
+//       success: true,
+//       message: 'Course is deleted succesfully',
+//       data: result,
+//     });
+//   });
 
 export const CourseControllers = {
     createCourseController,

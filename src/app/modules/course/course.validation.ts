@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-const TPreRequisiteCourses = z.object({
+const TPreRequisiteCoursesValidationSchema = z.object({
     course: z.string(),
-    isDeleted: z.boolean()
+    isDeleted: z.boolean().optional()
 })
 
 const courseValidationSchema = z.object({
@@ -11,8 +11,8 @@ const courseValidationSchema = z.object({
         prefix: z.string(),
         code: z.number(),
         credits: z.number(),
+        preRequisiteCourses: z.array(TPreRequisiteCoursesValidationSchema).optional(),
         isDeleted: z.boolean().optional(),
-        preRequisiteCourses: z.array(TPreRequisiteCourses).optional(),
     })
 })
 

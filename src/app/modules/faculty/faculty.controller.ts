@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/response';
-import { FacultyServices } from './faculty.service';
+import { FacultyServices } from './faculty.services';
 
 const getSingleFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
