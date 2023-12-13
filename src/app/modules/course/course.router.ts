@@ -8,6 +8,8 @@ const router = express.Router();
 router.post('/create-course', validateData(courseValidationSchemas.courseValidationSchema), CourseControllers.createCourseController)
 router.get('/', CourseControllers.getAllCoursesController);
 router.get('/:id', CourseControllers.getSingleCourseController);
+router.put('/:courseId/assign-faculties', validateData(courseValidationSchemas.facultyWithCourseValidationSchema), CourseControllers.assignFacultyWithCourseController);
+router.delete('/:courseId/remove-faculties', validateData(courseValidationSchemas.facultyWithCourseValidationSchema), CourseControllers.removeFacultyFromCourseController);
 router.patch('/:id', validateData(courseValidationSchemas.updateCourseValidationSchema), CourseControllers.updateCourseController );
 router.delete('/:id', CourseControllers.deleteCourseController);
 

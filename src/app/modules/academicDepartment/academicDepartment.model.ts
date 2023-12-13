@@ -36,4 +36,4 @@ academicDepartmentSchema.pre('findOneAndUpdate', async function(next){
 })
 
 
-export const AcademicDepartmentModel = model<TAcademicDepartment>('AcademicDepartment', academicDepartmentSchema)
+export const AcademicDepartmentModel = model<TAcademicDepartment>('academicdepartment', academicDepartmentSchema)
