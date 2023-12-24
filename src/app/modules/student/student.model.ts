@@ -139,12 +139,12 @@ studentSchema.virtual('fullName').get(function () {
     let firstName = '';
     let middleName = '';
     let lastName = '';
-    if(name){
-        firstName= name?.firstName;
-        middleName= name?.middleName;
-        lastName= name?.lastName;
+    if (name) {
+        firstName = name?.firstName;
+        middleName = name?.middleName;
+        lastName = name?.lastName;
     }
-    return `${name ? firstName + ' ' : ''}${name? middleName + ' ' : ' '}${name? lastName: ''}`;
+    return `${name ? firstName + ' ' : ''}${name ? middleName + ' ' : ' '}${name ? lastName : ''}`;
 })
 studentSchema.pre('find', function (next) {
     this.find({ isDeleted: { $ne: true } });

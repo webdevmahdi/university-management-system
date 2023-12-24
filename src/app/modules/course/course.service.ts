@@ -36,7 +36,6 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
 
     try {
         await session.startTransaction()
-
         const updateRemainingCourseInfo = await Course.findByIdAndUpdate(
             id,
             courseRemainingData,
@@ -45,9 +44,8 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
         if (!updateRemainingCourseInfo) {
             throw new AppError(httpStatus.BAD_REQUEST, `Failed to update ${courseRemainingData}`)
         }
-
+        
         if (preRequisiteCourses && preRequisiteCourses.length > 0) {
-
             const deletedPreRequisites = preRequisiteCourses.filter(el => el.course && el.isDeleted).map(el => el.course);
             const deletedPreRequisiteCourses = await Course.findByIdAndUpdate(
                 id,
@@ -57,7 +55,6 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
             if (!deletedPreRequisiteCourses) {
                 throw new AppError(httpStatus.BAD_REQUEST, `Failed to delete pre requisite course`)
             }
-
 
             const newPreRequisite = preRequisiteCourses.filter(el => el.course && !el.isDeleted);
             const addPreRequisiteCourse = await Course.findByIdAndUpdate(
@@ -69,12 +66,11 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
                 throw new AppError(httpStatus.BAD_REQUEST, `Failed to add pre requisite course`)
             }
         }
+
         await session.commitTransaction()
         await session.endSession()
-
         const result = await Course.findById(id).populate('preRequisiteCourses.course')
         return result;
-
     } catch (err) {
         await session.abortTransaction()
         await session.endSession()
@@ -83,32 +79,32 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
 
 }
 
-const assignFacultyWithCourseIntoDb =async (id:string, payload: Partial<TCourseFaculty>) => {
+const assignFacultyWithCourseIntoDb = async (id: string, payload: Partial<TCourseFaculty>) => {
     const result = await CourseFaculty.findByIdAndUpdate(
         id,
         {
-          course: id,
-          $addToSet: { faculties: { $each: payload } },
+            course: id,
+            $addToSet: { faculties: { $each: payload } },
         },
         {
-          upsert: true,
-          new: true,
+            upsert: true,
+            new: true,
         },
-      );
-      return result;
+    );
+    return result;
 }
 
-const removeFacultyFromCourseFromDb =async (id:string, payload: Partial<TCourseFaculty>) => {
+const removeFacultyFromCourseFromDb = async (id: string, payload: Partial<TCourseFaculty>) => {
     const result = await CourseFaculty.findByIdAndUpdate(
         id,
         {
-          $pull: {faculties: {$in: payload}}
+            $pull: { faculties: { $in: payload } }
         },
         {
-          new: true,
+            new: true,
         },
-      );
-      return result;
+    );
+    return result;
 }
 
 const deleteCourseFromDb = async (id: string) => {
